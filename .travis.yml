@@ -32,12 +32,15 @@ install:
   - pip install coverage coveralls flake8
   - python setup.py build_ext --inplace
 script:
-  - nosetests --with-coverage --cover-package=influxgraph
-  - nosetests --with-coverage --cover-package=influxgraph tests/test_influxdb_integration.py
-  # Test integration with pure Python code
-  - find influxgraph -type f -name '*.so' -exec rm -f {} +
-  - nosetests --with-coverage --cover-package=influxgraph tests/test_influxdb_integration.py tests/test_influxdb_templates_integration.py
-  - flake8 influxgraph
+  # - nosetests --with-coverage --cover-package=influxgraph
+  # - nosetests --with-coverage --cover-package=influxgraph tests/test_influxdb_integration.py
+  # # Test integration with pure Python code
+  # - find influxgraph -type f -name '*.so' -exec rm -f {} +
+  # - nosetests --with-coverage --cover-package=influxgraph tests/test_influxdb_integration.py tests/test_influxdb_templates_integration.py
+  # - flake8 influxgraph
+  - docker run --rm -v `pwd`:/io $DOCKER_IMAGE $PRE_CMD /io/travis/build-wheels.sh
+  - ls wheelhouse/
+_integration.py
 services:
   - memcached
   - docker
@@ -64,4 +67,3 @@ after_success:
       docker build -t ikuosu/influxgraph:latest . &&
       docker push ikuosu/influxgraph:latest;
     fi
-  - docker run --rm -v `pwd`:/io $DOCKER_IMAGE $PRE_CMD /io/travis/build-wheels.sh

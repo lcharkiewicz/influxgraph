@@ -17,6 +17,6 @@ done
 
 # Install packages and test
 for PYBIN in /opt/python/*/bin/; do
-    ${PYBIN}/pip install python-manylinux-demo --no-index -f /io/wheelhouse
-    (cd $HOME; ${PYBIN}/nosetests)
+    ${PYBIN}/pip install influxgraph --no-index -f /io/wheelhouse
+    (cd $HOME; ${PYBIN}/nosetests influxgraph)
 done

@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e -x
 
+yum install -y libffi-devel
+
 # Compile wheels
 for PYBIN in /opt/python/*/bin; do
     ${PYBIN}/pip install -U pip setuptools wheel

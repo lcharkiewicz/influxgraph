@@ -12,7 +12,7 @@ done
 
 # Bundle external shared libraries into the wheels
 for whl in wheelhouse/*.whl; do
-    auditwheel repair $whl -w /io/wheelhouse/ || echo "skipping pure wheel"
+    auditwheel repair $whl -w /io/wheelhouse/ || echo "deleting pure wheel" && rm -f $whl
 done
 
 # Install packages and test

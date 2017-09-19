@@ -58,6 +58,7 @@ class InfluxDBFinder(object):
     __fetch_multi__ = 'influxdb'
     __slots__ = ('client', 'aggregation_functions',
                  'memcache', 'memcache_host', 'memcache_ttl',
+                 'memcache_series_loader_mutex_key', 'memcache_fields_key',
                  'deltas', 'retention_policies', 'index', 'reader',
                  'index_lock', 'index_path', 'graphite_templates',
                  'loader_limit', 'fill_param')
@@ -76,6 +77,10 @@ class InfluxDBFinder(object):
         memcache_host = memcache_conf.get('host')
         self.memcache_ttl = memcache_conf.get(
             'ttl', MEMCACHE_SERIES_DEFAULT_TTL)
+        self.memcache_series_loader_mutex_key = memcache_conf.get(
+            'series_loader_mutex_key', SERIES_LOADER_MUTEX_KEY)
+        self.memcache_fields_key = memcache_conf.get(
+            'fields_key', _MEMCACHE_FIELDS_KEY)
         self.memcache = make_memcache_client(
             memcache_host, memcache_max_value=memcache_conf.get('max_value', 1))
         self.aggregation_functions = _compile_aggregation_patterns(

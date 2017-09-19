@@ -619,8 +619,8 @@ class InfluxDBFinder(object):
 
     def get_field_keys(self):
         """Get field keys for all measurements"""
-        field_keys = self.memcache.get(self.memcache_fields_key) if self.memcache \
-            else None
+        field_keys = self.memcache.get(self.memcache_fields_key) \
+            if self.memcache else None
         if field_keys:
             logger.debug("Found cached field keys")
             return field_keys

@@ -275,7 +275,7 @@ def parse_series(series, fields, graphite_templates, separator=b'.'):
         # pre-generate a correctly ordered split path for that metric
         # to be inserted into index
         if graphite_templates or ',' in serie:
-            serie_with_tags = serie.split(',')
+            serie_with_tags = re.split(r'(?<!\\),', serie)
             if graphite_templates:
                 for split_path in get_series_with_tags(
                         serie_with_tags, fields, graphite_templates,
